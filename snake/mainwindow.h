@@ -32,8 +32,12 @@ private:
     Ui::MainWindow *ui;
     QTimer *timer;
 
+
 protected:
     void keyPressEvent(QKeyEvent *e);
 };
+
+static const int W_WIDTH = 600;
+static const int W_HEIGHT = 600;
 
 #endif // MAINWINDOW_H

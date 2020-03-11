@@ -23,8 +23,8 @@ int score = 1;
 
 struct segment{
     //current position of snake
-    int cx;
-    int cy;
+    int cx = W_WIDTH / 2;
+    int cy = W_HEIGHT / 2;
 
     //past position of snake
     int px;
@@ -141,7 +141,7 @@ void MainWindow::myfunction()
 
 
     //if snake head hits wall, end game
-    if(snake[0].cx >= 300 || snake[0].cx < 0 || snake[0].cy >= 300 || snake[0].cy < 0)
+    if(snake[0].cx >= W_WIDTH || snake[0].cx < 0 || snake[0].cy >= W_HEIGHT || snake[0].cy < 0)
     {
         playing = false;
         GameOverBox();
