@@ -7,6 +7,7 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QVector>
+#include <QPushButton>
 
 
 QString snakeHeadDirection = "DOWN"; // direction snake is going
@@ -248,9 +249,13 @@ void GameOverBox()
 
 void StartBox()
 {
+    qDebug() << "MsgBox opened";
     QMessageBox msgBox;
     msgBox.setWindowTitle("Snake Game");
     msgBox.setText("Select your difficulty");
+
+
+    /*
     msgBox.addButton(QMessageBox::Yes);
     msgBox.addButton(QMessageBox::No);
     msgBox.addButton(QMessageBox::Cancel);
@@ -260,20 +265,29 @@ void StartBox()
     msgBox.setButtonText(QMessageBox::Yes, ("Slug"));
     msgBox.setButtonText(QMessageBox::No, ("Worm"));
     msgBox.setButtonText(QMessageBox::Cancel, ("Python"));
+*/
+    QAbstractButton *slugButton = msgBox.addButton("Slug", QMessageBox::ActionRole);
+    QAbstractButton *wormButton = msgBox.addButton("Worm", QMessageBox::ActionRole);
+    QAbstractButton *pythonButton = msgBox.addButton("Python", QMessageBox::ActionRole);
 
+    msgBox.exec();
 
-    if(msgBox.exec() == QMessageBox::Yes)
+    if(msgBox.clickedButton() == slugButton)
     {
         MSbetweenFrames = 100;
+
     }
-    else if(msgBox.exec() == QMessageBox::No)
+    else if(msgBox.clickedButton() == wormButton)
+    {
+        MSbetweenFrames = 75;
+
+    }
+    else if(msgBox.clickedButton() == pythonButton)
     {
         MSbetweenFrames = 50;
+
     }
-    else if(msgBox.exec() == QMessageBox::Cancel)
-    {
-        MSbetweenFrames = 25;
-    }
+
 }
 
 void addSegment()
