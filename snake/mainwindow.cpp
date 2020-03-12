@@ -1,5 +1,42 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
+#include <QKeyEvent>
+#include <random>
+#include "QDateTime"
+#include <QApplication>
+#include <QMessageBox>
+#include <QVector>
+
+
+QString snakeHeadDirection = "DOWN"; // direction snake is going
+
+int applex = 0; // x coordinate of apple
+int appley = 0; // y coordinate of apple
+
+char lastinput = 'S'; //last valid input that the snake will take, starts snake going down
+bool playing = true; //game still playing
+int MSbetweenFrames; //time between frames in milliseconds
+bool SpawnApple = true; //game needs to spawn apple next frame
+
+int score = 1;
+
+struct segment{
+    //current position of snake
+    int cx = W_WIDTH / 2;
+    int cy = W_HEIGHT / 2;
+
+    //past position of snake
+    int px;
+    int py;
+};
+
+QVector<segment> snake;
+
+int getRand(int min, int max, unsigned int seed);
+void GameOverBox();
+void addSegment();
+void StartBox();
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -211,6 +248,7 @@ void GameOverBox()
 
 void StartBox()
 {
+<<<<<<< HEAD
     QMessageBox msgBox1;
     msgBox1.setAttribute(Qt::WA_DeleteOnClose, true);
     msgBox1.setWindowTitle("Snake Game");
@@ -223,6 +261,20 @@ void StartBox()
     msgBox1.setButtonText(QMessageBox::Yes, ("Slug"));
     msgBox1.setButtonText(QMessageBox::No, ("Worm"));
     msgBox1.setButtonText(QMessageBox::Cancel, ("Python"));
+=======
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Snake Game");
+    msgBox.setText("Select your difficulty");
+    msgBox.addButton(QMessageBox::Yes);
+    msgBox.addButton(QMessageBox::No);
+    msgBox.addButton(QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+
+
+    msgBox.setButtonText(QMessageBox::Yes, ("Slug"));
+    msgBox.setButtonText(QMessageBox::No, ("Worm"));
+    msgBox.setButtonText(QMessageBox::Cancel, ("Python"));
+>>>>>>> parent of c492c3d... Fixed close on start bug
 
 
     if(msgBox1.exec() == QMessageBox::Yes)
