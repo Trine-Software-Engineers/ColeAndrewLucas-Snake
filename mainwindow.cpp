@@ -8,7 +8,10 @@
 #include <QMessageBox>
 #include <QVector>
 #include <QSize>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 QString snakeHeadDirection = "DOWN"; // direction snake is going
 
@@ -46,7 +49,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setMinimumSize(W_WIDTH, W_HEIGHT);
+<<<<<<< Updated upstream
     setFixedSize(W_WIDTH, W_HEIGHT);
+=======
+        setFixedSize(W_WIDTH, W_HEIGHT);
+>>>>>>> Stashed changes
     //setup time between frames
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this,SLOT(myfunction()));

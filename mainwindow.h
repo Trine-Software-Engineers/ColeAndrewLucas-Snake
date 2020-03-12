@@ -27,7 +27,11 @@ private:
     Ui::MainWindow *ui;
     QTimer *timer;
     const int W_WIDTH = 400;
+<<<<<<< Updated upstream
     const int W_HEIGHT = 400;
+=======
+        const int W_HEIGHT = 400;
+>>>>>>> Stashed changes
 
 protected:
     void keyPressEvent(QKeyEvent *e);
