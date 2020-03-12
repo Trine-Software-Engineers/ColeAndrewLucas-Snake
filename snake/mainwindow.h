@@ -29,6 +29,11 @@ public slots:
     void myfunction();
 
 private slots:
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_lcdNumber_overflow();
 
 private:
     Ui::MainWindow *ui;
