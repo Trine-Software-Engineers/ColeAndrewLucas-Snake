@@ -211,29 +211,29 @@ void GameOverBox()
 
 void StartBox()
 {
-    QMessageBox msgBox;
-    msgBox.setAttribute(Qt::WA_DeleteOnClose, true);
-    msgBox.setWindowTitle("Snake Game");
-    msgBox.setText("Select your difficulty");
-    msgBox.addButton(QMessageBox::Yes);
-    msgBox.addButton(QMessageBox::No);
-    msgBox.addButton(QMessageBox::Cancel);
-    msgBox.setDefaultButton(QMessageBox::Yes);
+    QMessageBox msgBox1;
+    msgBox1.setAttribute(Qt::WA_DeleteOnClose, true);
+    msgBox1.setWindowTitle("Snake Game");
+    msgBox1.setText("Select your difficulty");
+    msgBox1.addButton(QMessageBox::Yes);
+    msgBox1.addButton(QMessageBox::No);
+    msgBox1.addButton(QMessageBox::Cancel);
+    msgBox1.setDefaultButton(QMessageBox::Yes);
 
-    msgBox.setButtonText(QMessageBox::Yes, ("Slug"));
-    msgBox.setButtonText(QMessageBox::No, ("Worm"));
-    msgBox.setButtonText(QMessageBox::Cancel, ("Python"));
+    msgBox1.setButtonText(QMessageBox::Yes, ("Slug"));
+    msgBox1.setButtonText(QMessageBox::No, ("Worm"));
+    msgBox1.setButtonText(QMessageBox::Cancel, ("Python"));
 
 
-    if(msgBox.exec() == QMessageBox::Yes)
+    if(msgBox1.exec() == QMessageBox::Yes)
     {
         MSbetweenFrames = 100;
     }
-    else if(msgBox.exec() == QMessageBox::No)
+    else if(msgBox1.exec() == QMessageBox::No)
     {
         MSbetweenFrames = 50;
     }
-    else if(msgBox.exec() == QMessageBox::Cancel)
+    else if(msgBox1.exec() == QMessageBox::Cancel)
     {
         MSbetweenFrames = 25;
     }
