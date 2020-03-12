@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QVector>
 #include <QPushButton>
+#include <QSize>
 
 
 QString snakeHeadDirection = "DOWN"; // direction snake is going
@@ -45,7 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    setMinimumSize(W_WIDTH, W_HEIGHT);
+    setFixedSize(W_WIDTH, W_HEIGHT);
     //setup time between frames
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this,SLOT(myfunction()));
@@ -142,7 +144,7 @@ void MainWindow::myfunction()
 
 
     //if snake head hits wall, end game
-    if(snake[0].cx >= 300 || snake[0].cx < 0 || snake[0].cy >= 300 || snake[0].cy < 0)
+    if(snake[0].cx >= QWidget::width() || snake[0].cx < 0 || snake[0].cy >= QWidget::height() || snake[0].cy < 0)
     {
         playing = false;
         GameOverBox();
