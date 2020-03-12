@@ -7,6 +7,7 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QVector>
+#include <QSize>
 
 
 QString snakeHeadDirection = "DOWN"; // direction snake is going
@@ -44,7 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    setMinimumSize(W_WIDTH, W_HEIGHT);
+    setFixedSize(W_WIDTH, W_HEIGHT);
     //setup time between frames
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this,SLOT(myfunction()));
@@ -141,7 +143,7 @@ void MainWindow::myfunction()
 
 
     //if snake head hits wall, end game
-    if(snake[0].cx >= 300 || snake[0].cx < 0 || snake[0].cy >= 300 || snake[0].cy < 0)
+    if(snake[0].cx >= QWidget::width() || snake[0].cx < 0 || snake[0].cy >= QWidget::height() || snake[0].cy < 0)
     {
         playing = false;
         GameOverBox();
@@ -213,6 +215,7 @@ void GameOverBox()
 {
     QMessageBox msgBox;
     msgBox.setWindowTitle("Game Over!");
+    msgBox.setAttribute(Qt::WA_DeleteOnClose, true);
     msgBox.setText("Your snake was: " + QString::number(score) + " segments long!\nThank you for playing. Do you want to play again?");
     msgBox.setStandardButtons(QMessageBox::Yes);
     msgBox.addButton(QMessageBox::No);
@@ -250,6 +253,7 @@ void StartBox()
 {
     QMessageBox msgBox;
     msgBox.setWindowTitle("Snake Game");
+    msgBox.setAttribute(Qt::WA_DeleteOnClose, true);
     msgBox.setText("Select your difficulty");
     msgBox.addButton(QMessageBox::Yes);
     msgBox.addButton(QMessageBox::No);

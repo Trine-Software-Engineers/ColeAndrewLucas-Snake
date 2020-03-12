@@ -26,9 +26,13 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
+    const int W_WIDTH = 400;
+    const int W_HEIGHT = 400;
 
 protected:
     void keyPressEvent(QKeyEvent *e);
 };
+
+
 
 #endif // MAINWINDOW_H
