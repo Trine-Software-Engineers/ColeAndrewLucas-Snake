@@ -9,14 +9,14 @@
 #include <QVector>
 #include <QPushButton>
 #include <QSize>
-
+#include <QMetaEnum>
 
 QString snakeHeadDirection = "DOWN"; // direction snake is going
 
 int applex = 0; // x coordinate of apple
 int appley = 0; // y coordinate of apple
 
-char lastinput = 'S'; //last valid input that the snake will take, starts snake going down
+Qt::Key lastinput = Qt::Key_S; //last valid input that the snake will take, starts snake going down
 bool playing = true; //game still playing
 int MSbetweenFrames; //time between frames in milliseconds
 bool SpawnApple = true; //game needs to spawn apple next frame
@@ -121,26 +121,43 @@ void MainWindow::myfunction()
     }
 
     //move snake head by last valid input
-    if(lastinput == 'W')
+    if(lastinput == Qt::Key_W)
     {
         snake[0].cy += -10;
         snakeHeadDirection = "UP";
     }
-    else if(lastinput == 'S')
+    else if(lastinput == Qt::Key_S)
     {
         snake[0].cy += 10;
         snakeHeadDirection = "DOWN";
     }
-    else if(lastinput == 'A')
+    else if(lastinput == Qt::Key_A)
     {
         snake[0].cx += -10;
         snakeHeadDirection = "LEFT";
     }
-    else
+    else if(lastinput == Qt::Key_D)
+    {
+        snake[0].cx += 10;
+        snakeHeadDirection = "RIGHT";
+    } else if(lastinput == Qt::Key_Up)
+    {
+        snake[0].cx += 10;
+        snakeHeadDirection = "UP";
+    } else if(lastinput == Qt::Key_Down)
+    {
+        snake[0].cx += 10;
+        snakeHeadDirection = "DOWN";
+    } else if(lastinput == Qt::Key_Left)
+    {
+        snake[0].cx += 10;
+        snakeHeadDirection = "LEFT";
+    } else if(lastinput == Qt::Key_Right)
     {
         snake[0].cx += 10;
         snakeHeadDirection = "RIGHT";
     }
+
 
 
     //if snake head hits wall, end game
@@ -188,19 +205,20 @@ void MainWindow::myfunction()
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
     //get input
-    char currentinput = char(e->key());
+    //char currentinput = char(e->key());
+    Qt::Key k = Qt::Key(e->key());
 
     //check for valid input
-    if(currentinput == 'W' || currentinput == 'S' || currentinput == 'A' || currentinput == 'D')
+    if(k == Qt::Key_W || k == Qt::Key_S || k == Qt::Key_A || k == Qt::Key_D || k == Qt::Key_Up || k == Qt::Key_Down || k == Qt::Key_Left || k == Qt::Key_Right)
     {
         //don't allow snake to go backwards
-        if(snakeHeadDirection == "UP"       && currentinput == 'S') return;
-        if(snakeHeadDirection == "LEFT"     && currentinput == 'D') return;
-        if(snakeHeadDirection == "DOWN"     && currentinput == 'W') return;
-        if(snakeHeadDirection == "RIGHT"    && currentinput == 'A') return;
+        if(snakeHeadDirection == "UP"       && (k == Qt::Key_S || k == Qt::Key_Down)) return;
+        if(snakeHeadDirection == "LEFT"     && (k == Qt::Key_D || k == Qt::Key_Right)) return;
+        if(snakeHeadDirection == "DOWN"     && (k == Qt::Key_W || k == Qt::Key_Up)) return;
+        if(snakeHeadDirection == "RIGHT"    && (k == Qt::Key_A || k == Qt::Key_Left)) return;
 
         //assign new direction
-        lastinput = currentinput;
+        lastinput = k;
     }
 }
 
@@ -237,7 +255,7 @@ void GameOverBox()
         score = 1;
         snake[0].cx = 10;
         snake[0].cy = 10;
-        lastinput = 'S';
+        lastinput = Qt::Key_S;
         SpawnApple = true;
 
 
