@@ -24,11 +24,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        leaderboard.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
+        leaderboard.h \
         mainwindow.h
 
 FORMS += \
         mainwindow.ui
+
+DISTFILES += \
+    leaderboard.csv

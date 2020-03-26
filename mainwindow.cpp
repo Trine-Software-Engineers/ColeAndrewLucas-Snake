@@ -9,6 +9,7 @@
 #include <QVector>
 #include <QPushButton>
 #include <QSize>
+#include <QInputDialog>
 
 
 QString snakeHeadDirection = "DOWN"; // direction snake is going
@@ -212,6 +213,85 @@ int getRand(int min, int max, unsigned int seed){
     return uid(gen);
 }
 
+struct LeaderboardRow {
+    QString name;
+    int score;
+};
+
+void LeaderboardUpdate()
+{
+    QFile file("leaderboard.csv");
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << file.errorString();
+//        return 1;
+    }
+
+    //    QStringList nameList;
+    //    int scoreList[10];
+    QVector<LeaderboardRow> leaderboard;
+    while (!file.atEnd())
+    {
+        QByteArray line = file.readLine();
+        LeaderboardRow row;
+        row.name = line.split(',').first();
+        row.score = line.split(',').at(1).toInt();
+        leaderboard.append(row);
+//        nameList.append(line.split(',').first());
+//        scoreList.append( line.split(',').at(1).toInt() );
+    }
+//    file.close();
+
+    int topScore = 0;
+    for (int i = 0; i < leaderboard.size(); ++i)
+    {
+        if (leaderboard.at(i).score > topScore)
+        {
+            topScore = leaderboard.at(i).score;
+        }
+    }
+
+//    qDebug() << nameList;
+
+    if (score > topScore)
+    {
+        bool ok;
+        QString name = QInputDialog::getText(0, "New High Score!",
+                                                 "Player Name:", QLineEdit::Normal,
+                                                 "", &ok);
+        for (int i = 0; i < leaderboard.size(); ++i)
+        {
+            if (leaderboard.at(i).score < score)
+            {
+                LeaderboardRow newRow;
+                newRow.name = name;
+                newRow.score = score;
+                leaderboard.insert(i, newRow);
+                leaderboard.pop_back();
+                break;
+            }
+        }
+    }
+
+
+
+//    QFile outfile("leaderboard.csv");
+    QTextStream out(&file);
+
+    if (file.open(QIODevice::ReadWrite))
+//        return;
+    {
+        for (int i = 0; i < leaderboard.size(); ++i)
+        {
+            out << leaderboard.at(i).name << "," << QString::number(leaderboard.at(i).score) << endl;
+        }
+    }
+    out.flush();
+    file.close();
+
+//    if (ok && !text.isEmpty())
+//        textLabel->setText(text);
+}
+
 void GameOverBox()
 {
     QMessageBox msgBox;
@@ -220,6 +300,8 @@ void GameOverBox()
     msgBox.setStandardButtons(QMessageBox::Yes);
     msgBox.addButton(QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
+
+    LeaderboardUpdate();
 
     //if they want to play again, reset game
     if(msgBox.exec() == QMessageBox::Yes)
