@@ -22,11 +22,25 @@ leaderboard::leaderboard(QWidget *parent) :
     columnTitles << "Name" << "Score";
     ui->tableWidget->setHorizontalHeaderLabels(columnTitles);
 
+
+    QVector<LeaderboardRow> leaderboard; //create leaderboard vector
+    LeaderboardUpdate(leaderboard);
+    //generate random test leaderboard data
+    for(int i = 0; i<5; i++) {
+        LeaderboardRow row;
+        row.name = QString::number(qrand() % 3);
+        row.score = i;
+        leaderboard.append(row);
+    }
+
+    //load data onto leaderboard table
     int rownum;
-    ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-    rownum = ui->tableWidget->rowCount() - 1;
-    ui->tableWidget->setItem(rownum, 0, new QTableWidgetItem("DRU"));
-    ui->tableWidget->setItem(rownum, 1, new QTableWidgetItem(QString::number(lscore)));
+    for (int i = 0; i< 5; i++) {
+        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+        rownum = ui->tableWidget->rowCount() - (1);
+        ui->tableWidget->setItem(rownum, 0, new QTableWidgetItem(leaderboard.at(i).name));
+        ui->tableWidget->setItem(rownum, 1, new QTableWidgetItem(QString::number(leaderboard.at(i).score)));
+    }
 }
 
 leaderboard::~leaderboard()
@@ -39,12 +53,7 @@ void leaderboard::showLeaderboard() {
     board.exec();
 }
 
-struct LeaderboardRow {
-    QString name;
-    int score;
-};
-
-void leaderboard::LeaderboardUpdate()
+void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> leaderboard)
 {
     QFile file("leaderboard.csv");
     if (!file.open(QIODevice::ReadOnly)) {
@@ -54,7 +63,7 @@ void leaderboard::LeaderboardUpdate()
 
     //    QStringList nameList;
     //    int scoreList[10];
-    QVector<LeaderboardRow> leaderboard;
+    //QVector<LeaderboardRow> leaderboard;
     while (!file.atEnd())
     {
         QByteArray line = file.readLine();
@@ -115,7 +124,8 @@ void leaderboard::LeaderboardUpdate()
     out.flush();
     file.close();
 
-    showLeaderboard();
+
+    //showLeaderboard();
 
 //    if (ok && !text.isEmpty())
 //        textLabel->setText(text);
