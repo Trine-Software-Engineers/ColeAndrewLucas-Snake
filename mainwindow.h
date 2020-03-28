@@ -1,6 +1,17 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "ui_mainwindow.h"
+#include <QDebug>
+#include <QKeyEvent>
+#include <random>
+#include "QDateTime"
+#include <QApplication>
+#include <QMessageBox>
+#include <QVector>
+#include <QPushButton>
+#include <QSize>
+#include <QInputDialog>
 #include <QMainWindow>
 #include <QPainter>
 #include <QTimer>

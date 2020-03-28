@@ -1,15 +1,4 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include <QDebug>
-#include <QKeyEvent>
-#include <random>
-#include "QDateTime"
-#include <QApplication>
-#include <QMessageBox>
-#include <QVector>
-#include <QPushButton>
-#include <QSize>
-#include <QInputDialog>
 
 
 QString snakeHeadDirection = "DOWN"; // direction snake is going
