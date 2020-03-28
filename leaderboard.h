@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+//extern int score;
+
 namespace Ui {
 class leaderboard;
 }
@@ -15,9 +17,12 @@ public:
     explicit leaderboard(QWidget *parent = nullptr);
     ~leaderboard();
     void showLeaderboard();
+    void setScore(int newscore);
 
 private:
     Ui::leaderboard *ui;
 };
+
+
 
 #endif // LEADERBOARD_H
