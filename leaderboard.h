@@ -14,14 +14,18 @@ class leaderboard : public QDialog
 public:
     explicit leaderboard(QWidget *parent = nullptr);
     ~leaderboard();
+<<<<<<< Updated upstream
 
 
 
 public slots:
+=======
+>>>>>>> Stashed changes
     void showLeaderboard();
 
 private:
     Ui::leaderboard *ui;
+<<<<<<< Updated upstream
 
     enum Column {
         NAME, _SCORE
@@ -30,4 +34,8 @@ private:
 
 
 
+=======
+};
+
+>>>>>>> Stashed changes
 #endif // LEADERBOARD_H

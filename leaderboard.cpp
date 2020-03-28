@@ -12,6 +12,7 @@ leaderboard::leaderboard(QWidget *parent) :
     columnTitles << "Name" << "Score";
     ui->tableWidget->setHorizontalHeaderLabels(columnTitles);
 }
+<<<<<<< Updated upstream
 
 leaderboard::~leaderboard()
 {
@@ -24,5 +25,18 @@ void leaderboard::showLeaderboard() {
     rownum = ui->tableWidget->rowCount() - 1;
     ui->tableWidget->setItem(rownum, NAME, new QTableWidgetItem("DRU"));
     ui->tableWidget->setItem(rownum, _SCORE, new QTableWidgetItem("15"));
+=======
+
+leaderboard::~leaderboard()
+{
+    delete ui;
+>>>>>>> Stashed changes
 }
 
+void leaderboard::showLeaderboard() {
+    int rownum;
+    ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+    rownum = ui->tableWidget->rowCount() - 1;
+    ui->tableWidget->setItem(rownum, 0, new QTableWidgetItem("DRU"));
+    ui->tableWidget->setItem(rownum, 1, new QTableWidgetItem("15"));
+}
