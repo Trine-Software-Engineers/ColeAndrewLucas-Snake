@@ -4,7 +4,7 @@
 #include <QInputDialog>
 #include <QFile>
 #include <QDebug>
-
+#include <QTableView>
 
 int lscore;
 void leaderboard::setScore(int newscore) {
@@ -17,14 +17,20 @@ leaderboard::leaderboard(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("Leaderboard");
-    ui->tableWidget->setColumnCount(2);
+    ui->tableWidget->setColumnCount(3);
     QStringList columnTitles;
     columnTitles << "Name" << "Score";
     ui->tableWidget->setHorizontalHeaderLabels(columnTitles);
-
+    QHeaderView* header = ui->tableWidget->horizontalHeader();
+    header->resizeSection(0,20);
+    header->resizeSection(1,80);
+    header->resizeSection(2,80);
+    ui->tableWidget->setShowGrid(false);
+    ui->tableWidget->verticalHeader()->setVisible(false);
+    ui->tableWidget->horizontalHeader()->setVisible(false);
 
     QVector<LeaderboardRow> leaderboard; //create leaderboard vector
-    LeaderboardUpdate(leaderboard);
+    //LeaderboardUpdate(leaderboard);
     //generate random test leaderboard data
     for(int i = 0; i<5; i++) {
         LeaderboardRow row;
@@ -35,11 +41,19 @@ leaderboard::leaderboard(QWidget *parent) :
 
     //load data onto leaderboard table
     int rownum;
-    for (int i = 0; i< 5; i++) {
-        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-        rownum = ui->tableWidget->rowCount() - (1);
-        ui->tableWidget->setItem(rownum, 0, new QTableWidgetItem(leaderboard.at(i).name));
-        ui->tableWidget->setItem(rownum, 1, new QTableWidgetItem(QString::number(leaderboard.at(i).score)));
+    for (int i = 0; i< 6; i++) {
+        if(i==0){
+            ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+            rownum = ui->tableWidget->rowCount() - (1);
+            ui->tableWidget->setItem(rownum, 1, new QTableWidgetItem("Name"));
+            ui->tableWidget->setItem(rownum, 2, new QTableWidgetItem("Score"));
+        } else {
+            ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+            rownum = ui->tableWidget->rowCount() - (1);
+            ui->tableWidget->setItem(rownum, 1, new QTableWidgetItem(i));
+            ui->tableWidget->setItem(rownum, 1, new QTableWidgetItem(leaderboard.at(i-1).name));
+            ui->tableWidget->setItem(rownum, 2, new QTableWidgetItem(QString::number(leaderboard.at(i-1).score)));
+        }
     }
 }
 

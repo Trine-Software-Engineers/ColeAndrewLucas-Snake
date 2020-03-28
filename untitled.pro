@@ -33,6 +33,7 @@ HEADERS += \
         mainwindow.h
 
 FORMS += \
+        leaderboard.ui \
         mainwindow.ui
 
 DISTFILES += \
