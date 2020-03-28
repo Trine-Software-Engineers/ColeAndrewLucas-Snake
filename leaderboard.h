@@ -17,6 +17,7 @@ public:
     explicit leaderboard(QWidget *parent = nullptr);
     ~leaderboard();
     void showLeaderboard();
+    void LeaderboardUpdate();
     void setScore(int newscore);
 
 private:

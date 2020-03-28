@@ -5,6 +5,12 @@
 #include <QFile>
 #include <QDebug>
 
+
+int lscore;
+void leaderboard::setScore(int newscore) {
+    lscore = newscore;
+}
+
 leaderboard::leaderboard(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::leaderboard)
@@ -15,20 +21,7 @@ leaderboard::leaderboard(QWidget *parent) :
     QStringList columnTitles;
     columnTitles << "Name" << "Score";
     ui->tableWidget->setHorizontalHeaderLabels(columnTitles);
-}
 
-leaderboard::~leaderboard()
-{
-    delete ui;
-}
-int lscore;
-void leaderboard::setScore(int newscore) {
-    lscore = newscore;
-}
-
-void leaderboard::showLeaderboard() {
-    leaderboard board;
-    board.exec();
     int rownum;
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
     rownum = ui->tableWidget->rowCount() - 1;
@@ -36,12 +29,22 @@ void leaderboard::showLeaderboard() {
     ui->tableWidget->setItem(rownum, 1, new QTableWidgetItem(QString::number(lscore)));
 }
 
+leaderboard::~leaderboard()
+{
+    delete ui;
+}
+
+void leaderboard::showLeaderboard() {
+    leaderboard board;
+    board.exec();
+}
+
 struct LeaderboardRow {
     QString name;
     int score;
 };
 
-void LeaderboardUpdate()
+void leaderboard::LeaderboardUpdate()
 {
     QFile file("leaderboard.csv");
     if (!file.open(QIODevice::ReadOnly)) {
@@ -60,9 +63,11 @@ void LeaderboardUpdate()
         row.score = line.split(',').at(1).toInt();
         leaderboard.append(row);
 //        nameList.append(line.split(',').first());
-//        scoreList.append( line.split(',').at(1).toInt() );
+//        scoreList.append( line.split(',').at(1).toInt()
     }
 //    file.close();
+
+
 
     int topScore = 0;
     for (int i = 0; i < leaderboard.size(); ++i)
@@ -109,6 +114,8 @@ void LeaderboardUpdate()
     }
     out.flush();
     file.close();
+
+    showLeaderboard();
 
 //    if (ok && !text.isEmpty())
 //        textLabel->setText(text);
