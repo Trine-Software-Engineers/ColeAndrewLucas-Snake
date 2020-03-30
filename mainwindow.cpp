@@ -223,10 +223,12 @@ void LeaderboardUpdate()
 
     qDebug() << "leaderboard update called";
     QFile file("leaderboard.csv");
+    file.close();
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << file.errorString();
 //        return 1;
     }
+
     //    QStringList nameList;
     //    int scoreList[10];
     QVector<LeaderboardRow> leaderboard;
@@ -240,7 +242,7 @@ void LeaderboardUpdate()
 //        nameList.append(line.split(',').first());
 //        scoreList.append( line.split(',').at(1).toInt() );
     }
-//    file.close();
+    file.close();
 
     int topScore = 0;
     for (int i = 0; i < leaderboard.size(); ++i)
