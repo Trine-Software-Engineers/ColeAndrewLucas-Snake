@@ -132,7 +132,7 @@ void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> &leaderboard)
             {
                 LeaderboardRow newRow;
                 newRow.name = name;
-                newRow.score = QString::number(lscore);
+                newRow.score = QString::number(lscore) + "\n";
                 leaderboard.insert(i, newRow);
                 leaderboard.pop_back();
                 break;

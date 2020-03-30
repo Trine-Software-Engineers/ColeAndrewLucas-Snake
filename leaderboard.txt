@@ -1,3 +1,5 @@
-DRU2,8DRU,8INITMI,3
-INI,3
-,3
+Meu,12
+jfu,10
+fjd,7
+DRU2,1
+DRU,1
