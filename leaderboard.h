@@ -7,7 +7,7 @@
 
 struct LeaderboardRow {
     QString name;
-    int score;
+    QString score;
 };
 
 namespace Ui {
@@ -22,7 +22,7 @@ public:
     explicit leaderboard(QWidget *parent = nullptr);
     ~leaderboard();
     void showLeaderboard();
-    void LeaderboardUpdate(QVector<LeaderboardRow> leaderboard);
+    void LeaderboardUpdate(QVector<LeaderboardRow> &leaderboard);
     void setScore(int newscore);
 
 private:

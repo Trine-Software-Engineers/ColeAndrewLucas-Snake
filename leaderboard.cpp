@@ -41,7 +41,7 @@ leaderboard::leaderboard(QWidget *parent) :
 
     //load data onto leaderboard table
     int rownum;
-    for (int i = 0; i< 6; i++) {
+    for (int i = 0; i< 2; i++) {
         if(i==0){
             ui->tableWidget->insertRow(ui->tableWidget->rowCount());
             rownum = ui->tableWidget->rowCount() - (1);
@@ -49,10 +49,15 @@ leaderboard::leaderboard(QWidget *parent) :
             ui->tableWidget->setItem(rownum, 2, new QTableWidgetItem("Score"));
         } else {
             ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+            qDebug() << "1 done";
             rownum = ui->tableWidget->rowCount() - (1);
+            qDebug() << "2 done";
             ui->tableWidget->setItem(rownum, 1, new QTableWidgetItem(i));
-            ui->tableWidget->setItem(rownum, 1, new QTableWidgetItem(leaderboard.at(i-1).name));
-            ui->tableWidget->setItem(rownum, 2, new QTableWidgetItem(QString::number(leaderboard.at(i-1).score)));
+            qDebug() << "3 done";
+            ui->tableWidget->setItem(rownum, 1, new QTableWidgetItem(leaderboard.at(0).name));
+            qDebug() << "4 done";
+            ui->tableWidget->setItem(rownum, 2, new QTableWidgetItem((leaderboard.at(0).score)));
+            qDebug() << "5 done";
         }
     }
 }
@@ -67,7 +72,7 @@ void leaderboard::showLeaderboard() {
     board.exec();
 }
 
-void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> leaderboard)
+void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> &leaderboard)
 {
     QFile file("leaderboard.csv");
     file.close();
@@ -79,21 +84,26 @@ void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> leaderboard)
     //    QStringList nameList;
     //    int scoreList[10];
     //QVector<LeaderboardRow> leaderboard;
-    while (!file.atEnd())
-    {
+    /*while (!file.atEnd())
+    {*/
         QByteArray line = file.readLine();
         LeaderboardRow row;
         row.name = line.split(',').first();
-        row.score = line.split(',').at(1).toInt();
+        qDebug() << "numba 1";
+        //row.score = line.split(',').at(1);
+        row.score = "2";
+        qDebug() << "good here";
         leaderboard.append(row);
+qDebug() <<"here";
+
+
 //        nameList.append(line.split(',').first());
 //        scoreList.append( line.split(',').at(1).toInt()
-    }
+    //}
     file.close();
 
 
-
-    int topScore = 0;
+    /*int topScore = 0;
     for (int i = 0; i < leaderboard.size(); ++i)
     {
         if (leaderboard.at(i).score > topScore)
@@ -139,7 +149,7 @@ void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> leaderboard)
     out.flush();
     file.close();
 
-
+*/
     //showLeaderboard();
 
 //    if (ok && !text.isEmpty())
