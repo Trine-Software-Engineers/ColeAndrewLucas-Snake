@@ -10,7 +10,7 @@
 #include <QPushButton>
 #include <QSize>
 #include <QInputDialog>
-
+#include <QFile>
 
 QString snakeHeadDirection = "DOWN"; // direction snake is going
 
@@ -220,12 +220,13 @@ struct LeaderboardRow {
 
 void LeaderboardUpdate()
 {
+
+    qDebug() << "leaderboard update called";
     QFile file("leaderboard.csv");
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << file.errorString();
 //        return 1;
     }
-
     //    QStringList nameList;
     //    int scoreList[10];
     QVector<LeaderboardRow> leaderboard;

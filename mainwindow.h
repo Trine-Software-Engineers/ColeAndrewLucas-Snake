@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPainter>
 #include <QTimer>
+#include <QFile>
 
 namespace Ui {
 class MainWindow;
