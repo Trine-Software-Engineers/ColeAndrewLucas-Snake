@@ -195,6 +195,7 @@ void GameOverBox()
     msgBox.setDefaultButton(QMessageBox::No);
 
     leaderboard board;
+    board.setScore(score);
     board.showLeaderboard();
 
     //if they want to play again, reset game

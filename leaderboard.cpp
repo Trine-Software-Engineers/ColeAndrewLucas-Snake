@@ -56,7 +56,7 @@ leaderboard::leaderboard(QWidget *parent) :
             qDebug() << "3 done";
             ui->tableWidget->setItem(rownum, 1, new QTableWidgetItem(leaderboard.at(i-1).name));
             qDebug() << "4 done";
-            ui->tableWidget->setItem(rownum, 2, new QTableWidgetItem(QString::number(leaderboard.at(i-1).score)));
+            ui->tableWidget->setItem(rownum, 2, new QTableWidgetItem((leaderboard.at(i-1).score)));
             qDebug() << "5 done";
         }
     }
@@ -84,15 +84,18 @@ void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> &leaderboard)
     //    QStringList nameList;
     //    int scoreList[10];
     //QVector<LeaderboardRow> leaderboard;
+
     while (!file.atEnd())
     {
         QByteArray line = file.readLine();
         LeaderboardRow row;
         if (line.split(',').first() == "\r\n") {
-            return;
+                    qDebug() << "fej";
+            break;
         } else {
+            qDebug()<<"here";
             row.name = line.split(',').first();
-            row.score = line.split(',').at(1).toUInt();
+            row.score = line.split(',').at(1);
             leaderboard.append(row);
         }
 
@@ -101,18 +104,23 @@ void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> &leaderboard)
     }
     file.close();
 
+    qDebug() << QString::number(lscore);
 
-    int topScore = 0;
+    QString topScore = 0;
     for (int i = 0; i < leaderboard.size(); ++i)
     {
-        if (leaderboard.at(i).score > topScore)
+        if (leaderboard.at(i).score.toInt() > topScore.toInt())
         {
             topScore = leaderboard.at(i).score;
         }
     }
 
+
+    qDebug() << "first";//QString::number(leaderboard.at(0).score) <<;
+    qDebug() << QString::number(lscore);
+
 //    qDebug() << nameList;
-    if (lscore > topScore)
+    if (lscore > topScore.toInt())
     {
         bool ok;
         QString name = QInputDialog::getText(0, "New High Score!",
@@ -120,11 +128,11 @@ void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> &leaderboard)
                                                  "", &ok);
         for (int i = 0; i < leaderboard.size(); ++i)
         {
-            if (leaderboard.at(i).score < lscore)
+            if (leaderboard.at(i).score.toInt() < lscore)
             {
                 LeaderboardRow newRow;
                 newRow.name = name;
-                newRow.score = lscore;
+                newRow.score = QString::number(lscore);
                 leaderboard.insert(i, newRow);
                 leaderboard.pop_back();
                 break;
@@ -133,7 +141,8 @@ void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> &leaderboard)
     }
 
 
-
+    qDebug() << "second";//QString::number(leaderboard.at(0).score) << ;
+    qDebug() << QString::number(lscore);
 //    QFile outfile("leaderboard.csv");
     QTextStream out(&file);
 
@@ -142,7 +151,7 @@ void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> &leaderboard)
     {
         for (int i = 0; i < leaderboard.size(); ++i)
         {
-            out << leaderboard.at(i).name << "," << QString::number(leaderboard.at(i).score) << endl;
+            out << leaderboard.at(i).name << "," << leaderboard.at(i).score;
         }
     }
     out.flush();
