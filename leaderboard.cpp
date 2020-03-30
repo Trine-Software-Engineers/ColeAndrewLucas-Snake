@@ -30,14 +30,14 @@ leaderboard::leaderboard(QWidget *parent) :
     ui->tableWidget->horizontalHeader()->setVisible(false);
 
     QVector<LeaderboardRow> leaderboard; //create leaderboard vector
-    //LeaderboardUpdate(leaderboard);
+    LeaderboardUpdate(leaderboard);
     //generate random test leaderboard data
-    for(int i = 0; i<5; i++) {
+    /*for(int i = 0; i<5; i++) {
         LeaderboardRow row;
         row.name = QString::number(qrand() % 3);
         row.score = i;
         leaderboard.append(row);
-    }
+    }*/
 
     //load data onto leaderboard table
     int rownum;
@@ -70,6 +70,7 @@ void leaderboard::showLeaderboard() {
 void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> leaderboard)
 {
     QFile file("leaderboard.csv");
+    file.close();
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << file.errorString();
 //        return 1;
@@ -88,7 +89,7 @@ void leaderboard::LeaderboardUpdate(QVector<LeaderboardRow> leaderboard)
 //        nameList.append(line.split(',').first());
 //        scoreList.append( line.split(',').at(1).toInt()
     }
-//    file.close();
+    file.close();
 
 
 
