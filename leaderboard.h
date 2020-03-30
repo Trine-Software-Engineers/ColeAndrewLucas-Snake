@@ -7,7 +7,7 @@
 
 struct LeaderboardRow {
     QString name;
-    QString score;
+    int score;
 };
 
 namespace Ui {
